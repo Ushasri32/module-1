@@ -1,0 +1,46 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {  
+    int N;
+    cin>>N;
+    vector<pair<int,int>>a(N);
+    for(int i=0;i<N;i++){
+        cin>>a[i].first>>a[i].second;
+    }
+    int T;
+    cin>>T;
+    for(int i=0;i<T;i++){
+        int fu,tu,amt;
+        cin>>fu>>tu>>amt;
+        int fa=0,ta=0;
+        for(int j=0;j<N;j++){
+            if(a[j].first==fu)
+                fa=j;
+            if(a[j].first==tu)
+                ta=j;
+        }
+        if(fa!=-1 && ta!=-1 && a[fa].second>=amt)
+        {
+            a[fa].second-=amt;
+            a[ta].second+=amt;
+            cout<<"Success"<<endl;
+        }
+        else{
+            cout<<"Failure"<<endl;
+        }
+    }
+    sort(a.begin(),a.end(),[](const pair<int,int>&A,const pair<int,int>&B){
+        return A.second<B.second;
+    });
+    cout<<endl;
+    for(int i=0;i<N;i++){
+        cout<<a[i].first<<" "<<a[i].second<<endl;
+    }
+    return 0;
+}
